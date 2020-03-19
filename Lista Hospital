@@ -1,0 +1,114 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author Yoana
+ */
+import javax.swing.JOptionPane;
+public class ListaHospital {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        int opcion=0;
+        char r='s';
+        int nss;
+        String nombre;
+        String apaterno;
+        String amaterno;
+        int edad;
+        String genero=null;
+        String sintomas=null;
+        char g;
+    
+    Lista lista = new Lista();
+    do{
+        try{
+            opcion=Integer.parseInt(JOptionPane.showInputDialog(null, "Ingresa la opción correcta\n\n1. Agregar un Paciente"+
+                    "\n2. Mostrar a los pacientes\n3. Buscar por NSS\n4. Eliminar por NSS\n5. Salir\n\n","Menú",3));
+            
+            switch(opcion){
+                //Agregar un NUEVO PACIENTE
+                case 1:
+                    try{
+                        nss = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingresa el Numero de SS: ", 3));
+                        nombre = JOptionPane.showInputDialog(null, "Ingresa el nombre del Paciente: ", 3);
+                        apaterno = JOptionPane.showInputDialog(null, "Ingresa el Apellido Paterno: ", 3);
+                        amaterno = JOptionPane.showInputDialog(null, "Ingresa el Apellido Materno: ", 3);
+                        edad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingresa la edad: ", 3));
+                        while(edad <0 || edad>100){
+                            JOptionPane.showMessageDialog(null, "Esa edad no es correcta.");
+                            edad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingresa la edad: ", 3));
+                        }
+                            genero = String.valueOf(JOptionPane.showInputDialog(null, "Ingresa el género: ", 3));
+                            
+                                
+                                sintomas = JOptionPane.showInputDialog(null, "Ingresa los síntomas: ", 3);
+                                lista.agregarInicio(nss, nombre, apaterno, amaterno, edad, genero, sintomas);
+                            }
+                        
+                        
+                        //Agregar Paciente
+                        
+                        
+                    catch(NumberFormatException n){
+                        JOptionPane.showMessageDialog(null, "Error" + n.getMessage());
+                    }
+                    break;
+                
+                //Mostrar PACIENTES
+                case 2:
+                    if (lista.ListaVacia()== true){
+                        System.out.println("\n\n...::: La Lista está Vacía...:::\n\n");
+                        JOptionPane.showMessageDialog(null, "La Lista está Vacía");
+                    }
+                    else lista.mostrarLista();
+                    break;
+                
+                //Buscar PACIENTES
+                case 3:
+                     if (lista.ListaVacia()== true){
+                        System.out.println("\n\n...::: La Lista está Vacía...:::\n\n");
+                        JOptionPane.showMessageDialog(null, "La Lista está Vacía");
+                    }
+                     else{
+                     nss = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingresa el Numero de SS: ", 3));
+                    lista.Buscar(nss);
+                     }
+                    break;
+                 
+                    
+                //Eliminar Pacientes
+                case 4:
+                     if (lista.ListaVacia()== true){
+                        System.out.println("\n\n...::: La Lista está Vacía...:::\n\n");
+                        JOptionPane.showMessageDialog(null, "La Lista está Vacía");
+                    }
+                     else{
+                        nss = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingresa el Numero de SS: ", 3));
+                        lista.Eliminar(nss);
+                     }
+                    
+                    break;
+                case 5:
+                    JOptionPane.showMessageDialog(null, "Finalizar Programa");
+                    break;
+                    
+                default:
+                    JOptionPane.showMessageDialog(null, "Opcion incorrecta");
+            }
+        } 
+        catch(Exception e){
+            //JOptionPane.showMessageDialog(null, "Error" + e.getMessage());
+            System.exit(0);
+        }
+    
+} while (opcion!=5);
+}
+    
+    }
