@@ -1,0 +1,45 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author Yoana
+ */
+public class Paciente {
+    public int nss;
+    public String nombre;
+    public String apaterno;
+    public String amaterno;
+    public int edad;
+    public String genero;
+    public String sintomas;
+    
+    public Paciente siguiente; //Puntero enlace
+    
+    //Constructor para insertar al inicio
+    public Paciente (int num, String name, String pater, String mater, int age, String gen, String sintoma, Paciente s){
+        nss=num;
+        nombre=name;
+        apaterno=pater;
+        amaterno=mater;
+        edad=age;
+        genero=gen;
+        sintomas=sintoma;
+        siguiente=s;
+    }
+    
+    //Constructor para insertar al último
+    public Paciente (int num, String name, String pater, String mater, int age, String gen, String sintoma){
+       this.nss=num;
+        this.nombre=name;
+        this.apaterno=pater;
+        this.amaterno=mater;
+        this.edad=age;
+        this.genero=gen;
+        this.sintomas=sintoma;
+       
+    }
+}
