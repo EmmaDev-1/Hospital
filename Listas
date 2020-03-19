@@ -1,0 +1,175 @@
+import javax.swing.JOptionPane;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author Yoana
+ */
+public class Lista {
+    protected Paciente inicio,fin;//Punteros para inicio y fin
+    
+    public Lista(){
+        inicio =  null;
+        fin = null;
+    }
+
+    public void agregarInicio(int num, String name, String pater, String mater, int age, String gen, String sintoma){
+        Paciente nodo =  new Paciente(num, name,pater, mater, age, gen, sintoma, inicio);
+        Paciente p=inicio;
+        Paciente p2=null;
+        while(p != null){
+            p2=p;
+            p=p.siguiente;
+        }
+        if (inicio ==  p){
+            inicio=nodo;
+        }
+        else{
+            p2.siguiente=nodo;
+        }
+        nodo.siguiente=p;
+        
+    }
+
+    
+    //Método Mostrar
+    public void mostrarLista(){
+        Paciente recorrer = inicio;
+        System.out.println("Lista de Pacientes ingresados: \n");
+        while (recorrer != null){
+            
+            System.out.println(" - "+recorrer.nss+" - "+recorrer.nombre+" - "+recorrer.apaterno+" - "+recorrer.amaterno+" - "+recorrer.edad+" - "+recorrer.genero+" - "+recorrer.sintomas);
+            recorrer=recorrer.siguiente;
+        }
+        
+        System.out.println("\n...:::   :::...");
+    }
+    
+    //Método para saber si está vacía
+    public boolean ListaVacia(){
+        return inicio == null;
+    }
+    
+    public void Eliminar(int num){
+        Object[] options = {"SI","NO"};
+        double precio, precios;
+        int pago;
+        //JUSTO
+        if (!ListaVacia()){
+           Paciente aux_borrar,anterior,lista;
+               anterior=null;
+               lista=null;
+               aux_borrar=inicio;
+               
+           while( aux_borrar != null && aux_borrar.nss != num){
+                   anterior=aux_borrar;
+                   aux_borrar=aux_borrar.siguiente;
+               }
+           	if (aux_borrar==null){
+		JOptionPane.showMessageDialog(null, "Ese paciente no existe en la lista ");
+                }
+                else if (anterior==null){
+                     precio=CostoDX(inicio.edad);
+                     precios= Math.round(precio * 100) / 100d;
+                    pago=JOptionPane.showOptionDialog(null, "El monto por pagar es: $"+precios+"\n\n¿Se pagó?",
+                "Click a button",JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                            
+                    if(pago==0){
+                        JOptionPane.showMessageDialog(null, "El paciente "+num+" se ELIMINÓ correctamente. ");
+                        inicio=inicio.siguiente;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "No se realizó el pago.\n\nEl paciente "+num+" NO se ELIMINÓ correctamente. ");
+                    }
+                }
+                else{
+                     precio=CostoDX(inicio.edad);
+                precios= Math.round(precio * 100) / 100d;
+                    pago=JOptionPane.showOptionDialog(null, "El monto por pagar es: $"+precios+"\n\n¿Se pagó?",
+                "Click a button",JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+                            
+                    if(pago==0){
+                        JOptionPane.showMessageDialog(null, "El paciente "+num+" se ELIMINÓ correctamente. ");
+                        anterior.siguiente=aux_borrar.siguiente;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "No se realizó el pago.\n\nEl paciente "+num+" NO se ELIMINÓ correctamente. ");
+                    }
+                }
+                
+        }
+        else JOptionPane.showMessageDialog(null, "La lista está vacía.");
+        
+    }
+    
+    public void Buscar(int num){
+        boolean a=false;
+         Paciente anterior;
+               anterior=inicio;
+               
+               if (!ListaVacia()){
+                   while( anterior != null){
+                       if(anterior.nss == num){
+                           a=true;
+                       }
+                       
+                   anterior=anterior.siguiente;
+                    }
+                   if(a==true){
+                       JOptionPane.showMessageDialog(null, "El paciente "+num+" SI se encontró en la lista");
+                   }
+                   else{
+                           JOptionPane.showMessageDialog(null, "El paciente "+num+" NO se encontró en la lista");
+                       }
+               }
+               
+               
+    }
+    
+    public double CostoDX(int edad){
+        int dias,dx;
+        double precio=0;
+        double enf1 = 236.20;
+	 double enf2 = 780.14;
+	 double enf3 = 1740.10;
+	 double enf4 = 2801.90;
+         
+        dx=Integer.parseInt(JOptionPane.showInputDialog(null, "Ingresa la enfermedad que se diagnosticó:\n"+
+                "1. enf1\n2. enf2\n3. enf3\n4. enf4", 3));
+        dias=Integer.parseInt(JOptionPane.showInputDialog(null, "Ingresa los días de Hospitalización: ", 3));
+         
+        switch(dx){
+		case 1:
+			precio=enf1*dias;
+			break;
+		
+		case 2:
+			precio= enf2*dias;
+			break;
+	
+		case 3:
+			precio = enf3*dias;
+			break;
+		
+		case 4:
+			precio = enf4*dias;
+			break;
+	}
+	
+	if (edad >=14 && edad<=21){
+		precio= precio*.88;
+		return precio;
+	}
+	else{
+		return precio;
+	}
+         
+    }
+    
+    
+}
